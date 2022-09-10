@@ -6,15 +6,15 @@ spring:
     name: store-manage-service
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://43.138.20.232:3306/da_store?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    url: jdbc:mysql://**.***.**.***:3306/da_store?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8&useSSL=false
     username: root
-    password: Zu5L5ZObXrt1mpnvm0hHI9l9KXu6G21dSOVo6Y6gRptmIM/H/o6oCgx0z1oDvrTPy41CltCHAbR4kt9Iy6oJ7g==
+    password: afidjioafhoafhoafh********************
     driverClassName: com.mysql.cj.jdbc.Driver
     druid:
        filter:
          config:
           enabled: true
-       connection-properties: config.decrypt=true;config.decrypt.key=MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALAjbzbvpTENeJE0cAWseS9Tf6wxRJPrRO7rtMpv2ieA0woqnwU/2zGNaHCkFd7aab47965IiO1OME8QqJlAwDUCAwEAAQ==
+       connection-properties: config.decrypt=true;config.decrypt.key=******************AwSAJBALAjbzbvpTENeJE0cAWseS9Tf6wxRJPrRO7rtMpv2ieA0woqnwU/2zGNaHCkFd7aab47965IiO1OME8QqJlAwDUCAwEAAQ==
        initial-size: 3
        min-idle: 3
        max-active: 20
