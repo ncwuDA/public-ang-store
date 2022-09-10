@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ang.storemanageservice.dao.StoreGoodsDao">
+
+    <resultMap id="StoreGoods" type="com.ang.storemanageservice.entity.StoreGoods">
+        <result property="goodsId" column="goods_id"/>
+        <result property="goodsName" column="goods_name"/>
+        <result property="goodsType" column="goods_type"/>
+        <result property="goodsPrice" column="goods_price"/>
+        <result property="goodsNum" column="goods_num"/>
+        <result property="goodsInitialNum" column="goods_initial_num"/>
+        <result property="goodsSupplier" column="goods_supplier"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+
+    <insert id="insertStoreGoods" parameterType="com.ang.storemanageservice.entity.StoreGoods" useGeneratedKeys="true">
+        INSERT INTO store_goods (
+        <trim prefixOverrides=",">
+            <if test="goodsId != null">,goods_id</if>
+            <if test="goodsName != null">,goods_name</if>
+            <if test="goodsType != null">,goods_type</if>
+            <if test="goodsPrice != null">,goods_price</if>
+            <if test="goodsNum != null">,goods_num</if>
+            <if test="goodsInitialNum != null">,goods_initial_num</if>
+            <if test="goodsSupplier != null">,goods_supplier</if>
+            <if test="createTime != null">,create_time</if>
+            <if test="updateTime != null">,update_time</if>
+        </trim>
+        ) VALUES (
+        <trim prefixOverrides=",">
+            <if test="goodsId != null">,#{goodsId}</if>
+            <if test="goodsName != null">,#{goodsName}</if>
+            <if test="goodsType != null">,#{goodsType}</if>
+            <if test="goodsPrice != null">,#{goodsPrice}</if>
+            <if test="goodsNum != null">,#{goodsNum}</if>
+            <if test="goodsInitialNum != null">,#{goodsInitialNum}</if>
+            <if test="goodsSupplier != null">,#{goodsSupplier}</if>
+            <if test="createTime != null">,#{createTime}</if>
+            <if test="updateTime != null">,#{updateTime}</if>
+        </trim>
+        )
+    </insert>
+
+    <update id="updateStoreGoodsById" parameterType="com.ang.storemanageservice.entity.StoreGoods">
+        UPDATE store_goods
+        <set>
+            <if test="goodsName != null">goods_name = #{goodsName},</if>
+            <if test="goodsType != null">goods_type = #{goodsType},</if>
+            <if test="goodsPrice != null">goods_price = #{goodsPrice},</if>
+            <if test="goodsNum != null">goods_num = #{goodsNum},</if>
+            <if test="goodsInitialNum != null">goods_initial_num = #{goodsInitialNum},</if>
+            <if test="goodsSupplier != null">goods_supplier = #{goodsSupplier},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        WHERE goods_id = #{goodsId}
+    </update>
+
+    <select id="getStoreGoods" parameterType="java.util.Map" resultMap="StoreGoods">
+        SELECT goods_id,
+               goods_name,
+               goods_type,
+               goods_price,
+               goods_num,
+               goods_initial_num,
+               goods_supplier,
+               create_time,
+               update_time
+        FROM store_goods
+        WHERE goods_id = #{goodsId}
+    </select>
+
+    <select id="listStoreGoods" parameterType="java.util.Map" resultMap="StoreGoods">
+        SELECT
+        goods_id,
+        goods_name,
+        goods_type,
+        goods_price,
+        goods_num,
+        goods_initial_num,
+        goods_supplier,
+        create_time,
+        update_time
+        FROM store_goods
+        <where>
+            <if test="goodsId != null">AND goods_id = #{goodsId}</if>
+            <if test="goodsName != null">AND goods_name = #{goodsName}</if>
+            <if test="goodsType != null">AND goods_type = #{goodsType}</if>
+            <if test="goodsPrice != null">AND goods_price = #{goodsPrice}</if>
+            <if test="goodsNum != null">AND goods_num = #{goodsNum}</if>
+            <if test="goodsInitialNum != null">AND goods_initial_num = #{goodsInitialNum}</if>
+            <if test="goodsSupplier != null">AND goods_supplier = #{goodsSupplier}</if>
+            <if test="createTime != null">AND create_time = #{createTime}</if>
+            <if test="updateTime != null">AND update_time = #{updateTime}</if>
+        </where>
+    </select>
+
+    <select id="getCount" resultType="java.lang.Integer" parameterType="com.ang.storemanageservice.req.StoreGoodsReq">
+        SELECT
+        count(*)
+        FROM
+        store_goods
+        <where>
+            <if test="key != null and key != ''">and (goods_name like CONCAT('%',#{key},'%'))</if>
+            <if test="goodsType != null and goodsType != ''">and (goods_type like CONCAT('%',#{goodsType},'%'))
+            </if>
+        </where>
+    </select>
+
+    <select id="pageList" resultType="com.ang.storemanageservice.entity.StoreGoods"
+            parameterType="com.ang.storemanageservice.req.StoreGoodsReq">
+        SELECT
+        goods_id,
+        goods_name,
+        goods_type,
+        goods_price,
+        goods_num,
+        goods_initial_num,
+        goods_supplier,
+        create_time,
+        update_time
+        FROM
+        store_goods
+        <where>
+            <if test="key != null and key != ''">and (goods_name like CONCAT('%',#{key},'%'))
+            </if>
+            <if test="goodsType != null and goodsType != ''">and (goods_type like CONCAT('%',#{goodsType},'%'))
+            </if>
+        </where>
+        order by create_time DESC
+        LIMIT #{startRow},#{pageSize}
+    </select>
+</mapper>
